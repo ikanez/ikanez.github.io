@@ -16,23 +16,130 @@
 var map, placesList;
 var j =0;
 function initialize() {
-  var kl_city_center = new google.maps.LatLng(3.1464672,101.6977578); //kuala lumpur
-
+  var malaysia = new google.maps.LatLng(4.140634,109.6181485); //malaysia
+  var kl = new google.maps.LatLng(3.139003,101.6868554); //kuala lumpur
+  var selangor = new google.maps.LatLng(3.2312963,101.379106); //selangor
+  var penang = new google.maps.LatLng(5.3540039,100.3628774); //penang
+  var johor = new google.maps.LatLng(2.049517,103.5096383); //johor
+  var perlis = new google.maps.LatLng(6.4899689,100.2437587); //perlis
+  var kedah = new google.maps.LatLng(5.81074,100.6611889); //kedah
+  var perak = new google.maps.LatLng(4.8012042,101.0566352); //perak
+  var n9 = new google.maps.LatLng(2.8398229,102.2021089); //negeri sembilan
+  var melaka = new google.maps.LatLng(2.2732205,102.2821323); //melaka
+  var pahang = new google.maps.LatLng(3.619337,102.7779638); //pahang
+  var trganu = new google.maps.LatLng(4.9224545,102.935723); //terengganu
+  var klntn = new google.maps.LatLng(5.3951083,101.9999469); //kelantan
+  var sabah = new google.maps.LatLng(5.5768616,117.3028865); //sabah
+  var sarawak = new google.maps.LatLng(2.9228285,112.6112244); //sarawak
+  
+  
   map = new google.maps.Map(document.getElementById('map-canvas'), {
-    center: kl_city_center,
-    zoom: 10
+    center: malaysia,
+    zoom: 6
   });
 
   var request = {
-    location: kl_city_center,
+    location: kl,
     radius: 50000,
     types: ['shopping_mall']
   };
-
+  
+  var request2 = {
+    location: selangor,
+    radius: 50000,
+    types: ['shopping_mall']
+  };
+  
+  var request3 = {
+    location: penang,
+    radius: 50000,
+    types: ['shopping_mall']
+  };
+  
+  var request4 = {
+    location: johor,
+    radius: 50000,
+    types: ['shopping_mall']
+  };
+  
+  var request5 = {
+    location: perlis,
+    radius: 50000,
+    types: ['shopping_mall']
+  };
+  
+  var request6 = {
+    location: kedah,
+    radius: 50000,
+    types: ['shopping_mall']
+  };
+  
+  var request7 = {
+    location: perak,
+    radius: 50000,
+    types: ['shopping_mall']
+  };
+  
+  var request8 = {
+    location: n9,
+    radius: 50000,
+    types: ['shopping_mall']
+  };
+  
+  var request9 = {
+    location: melaka,
+    radius: 50000,
+    types: ['shopping_mall']
+  };
+  
+  var request10 = {
+    location: pahang,
+    radius: 50000,
+    types: ['shopping_mall']
+  };
+  
+  var request11 = {
+    location: trganu,
+    radius: 50000,
+    types: ['shopping_mall']
+  };
+  
+  var request12 = {
+    location: klntn,
+    radius: 50000,
+    types: ['shopping_mall']
+  };
+  
+  var request13 = {
+    location: sabah,
+    radius: 50000,
+    types: ['shopping_mall']
+  };
+  
+  var request14 = {
+    location: sarawak,
+    radius: 50000,
+    types: ['shopping_mall']
+  };
+  
+  
   placesList = document.getElementById('places');
 
   var service = new google.maps.places.PlacesService(map);
   service.nearbySearch(request, callback);
+  service.nearbySearch(request2, callback);
+  service.nearbySearch(request3, callback);
+  service.nearbySearch(request4, callback);
+  service.nearbySearch(request5, callback);
+  service.nearbySearch(request6, callback);
+  service.nearbySearch(request7, callback);
+  service.nearbySearch(request8, callback);
+  service.nearbySearch(request9, callback);
+  service.nearbySearch(request10, callback);
+  service.nearbySearch(request11, callback);
+  service.nearbySearch(request12, callback);
+  service.nearbySearch(request13, callback);
+  service.nearbySearch(request14, callback);
 }
 
 function callback(results, status, pagination) {
