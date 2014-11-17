@@ -53,9 +53,9 @@ function codeLatLng() {
             position: latlng,
             map: map
         });
-        infowindow.setContent(results[1].formatted_address);
+        infowindow.setContent(results[1].name);
         infowindow.open(map, marker);
-		alert(results.name);
+		alert(results[1].name);
       } else {
         alert('No results found');
       }
