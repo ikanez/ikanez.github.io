@@ -96,6 +96,8 @@ head(summary(lst))</code></pre>
 ## Bayan Lepas &quot;7&quot;    &quot;data.frame&quot; &quot;list&quot;
 ## Bintulu     &quot;6&quot;    &quot;data.frame&quot; &quot;list&quot;</code></pre>
 <p><strong><span style="color:blue">Example of Web Scraping in R</blue></strong></p>
+<p>Sometimes you may came across live data that is updated periodically. If the source doesn’t have an API for you to use, chances are you might need to scrape them off the web.</p>
+<p>The below data set belongs to the Deparment of Environment, which updates the air pollution index every hour on 6 hour window table. In the following example, you can see how to extract data from table which resides in a web page. Also note that different time window uses different URL, thus in actual implementation you will need to change the URL according to the time of day.</p>
 <pre class="r"><code>setwd(&quot;D:/hack_data&quot;)
 library('XML')
 theurl &lt;- &quot;http://apims.doe.gov.my/v2/hourly1.php&quot;
@@ -266,6 +268,7 @@ tables[[which.max(n.rows)]]</code></pre>
 ## 50                 
 ## 51                 
 ## 52</code></pre>
+<p>To be continued with other data sources…</p>
 
 
 </div>
