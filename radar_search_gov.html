@@ -1,0 +1,151 @@
+<!--
+There are 2 parameter that you can change to affect the results:
+1. the starting point (row 57, or find "LatLng")
+2. the search keyword (row 84, or find "keyword")
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Search for up to 200 places with Radar Search</title>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <style>
+      html, body {
+        height: 80%;
+        margin: 20px;
+        padding: 0px
+      }
+	  #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+	  
+	  h3{
+		font-weight: normal;
+		font-size: 100%;
+		font-family: 'Open Sans';
+		}
+	
+		h4{
+			font-weight: normal;
+			font-size: 12px;
+			font-family: 'Open Sans';
+			width: 50%;
+		}
+		
+		ul {
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+			height: 321px;
+			font-size: 12px;
+			font-family: 'Open Sans';
+			/*width: 200px;*/
+			overflow-y: scroll;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places,visualization&v=3.exp"></script>
+    <script>
+var map;
+var infoWindow;
+var service;
+var j = 0;
+function initialize() {
+  map = new google.maps.Map(document.getElementById('map-canvas'), {
+    center: new google.maps.LatLng(3.1464672,101.6977578), // starting point of map. search is conducted around the starting point. 
+    zoom: 10,
+    styles: [
+      {
+        stylers: [
+          { visibility: 'simplified' }
+        ]
+      },
+      {
+        elementType: 'labels',
+        stylers: [
+          { visibility: 'on' }
+        ]
+      }
+    ]
+  });
+
+  infoWindow = new google.maps.InfoWindow();
+  service = new google.maps.places.PlacesService(map);
+
+  google.maps.event.addListenerOnce(map, 'bounds_changed', performSearch);
+  
+}
+var request;
+function performSearch() {
+  request = {
+    bounds: map.getBounds(),
+    keyword: 'government offices' //change keyword that you want to search here
+  };
+  service.radarSearch(request, callback);
+}
+
+function callback(results, status) {
+  if (status != google.maps.places.PlacesServiceStatus.OK) {
+    alert(status);
+    return;
+  }
+  for (var i = 0, result; result = results[i]; i++) {
+    createMarker(result);
+  }
+}
+
+function createMarker(place) {
+  var marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location,
+    icon: {
+      // Star
+      path: 'M 0,-24 6,-7 24,-7 10,4 15,21 0,11 -15,21 -10,4 -24,-7 -6,-7 z',
+      fillColor: '#ffff00',
+      fillOpacity: 1,
+      scale: 1/4,
+      strokeColor: '#bd8d2c',
+      strokeWeight: 1
+    }
+	
+	
+  });
+	
+	google.maps.event.addListener(marker, 'click', function() {
+		service.getDetails(place, function(result, status) {
+		  if (status != google.maps.places.PlacesServiceStatus.OK) {
+			alert(status);
+			return;
+		  }
+		  infoWindow.setContent( "Name:"+result.name+ "<br />Address:" + result.formatted_address+ "<br />Type:" + result.types );
+		  infoWindow.open(map, marker);
+		});
+	});
+  
+	//send result to output
+	j++;
+	places.innerHTML += '<li>'+ j +". Google Place ID:"+ place.place_id + " | LatLong:" + place.geometry.location +'</li>';
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+	
+  </head>
+  <body>
+	<h3>Search for up to 200 places with Radar Search</h3>
+	<h4> 
+	<p>The Google Places API Radar Search Service allows you to search for up to 200 places at once, but with less detail than is typically returned from a Text Search or Nearby Search request. With Radar Search, you can create applications that help users identify specific areas of interest within a geographic area.
+
+	<p>The search response will include up to 200 places, and will include only the following information about each place:
+
+	<p> 1.The geometry field containing geographic coordinates.
+	<br>2.The place_id, which you can use in a Place Details request to get more information about the place.
+	</h4>
+    <div id="map-canvas"></div>
+	<h3>Search Result</h3>
+	<ul id="places"></ul>
+  </body>
+</html>
