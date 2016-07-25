@@ -126,7 +126,7 @@ function createMarker(place) {
   
 	//send result to output
 	j++;
-	places.innerHTML += '<li>'+ j +". Google Place ID:"+ place.place_id + " | LatLong:" + place.geometry.location +'</li>';
+	places.innerHTML += '<li>'+ j +". Google Place ID:"+ place.place_id +  "| PlaceName: "  + place.name + " | LatLong:" + place.geometry.location +'</li>';
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
