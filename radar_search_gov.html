@@ -126,7 +126,16 @@ function createMarker(place) {
   
 	//send result to output
 	j++;
-	places.innerHTML += '<li>'+ j +". Google Place ID:"+ place.place_id +  "| PlaceName: "  + place.name + " | LatLong:" + place.geometry.location +'</li>';
+	service.getDetails(place, function(result, status) {
+		  if (status != google.maps.places.PlacesServiceStatus.OK) {
+			alert(status);
+			return;
+		  }
+		  //infoWindow.setContent( "Name:"+result.name+ "<br />Address:" + result.formatted_address+ "<br />Type:" + result.types );
+		  //infoWindow.open(map, marker);
+		  places.innerHTML += '<li>'+ j + "| PlaceName: "  + result.name + " | LatLong:" + result.geometry.location +'</li>';
+	})
+	//places.innerHTML += '<li>'+ j +". Google Place ID:"+ place.place_id +  "| PlaceName: "  + place.name + " | LatLong:" + place.geometry.location +'</li>';
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
